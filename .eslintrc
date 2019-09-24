@@ -1,0 +1,14 @@
+{
+  "parser": "babel-eslint",
+  "extends": [ "standard", "standard-jsx" ],
+  "plugins": [
+    "jsx-a11y"
+  ],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "operator-linebreak": ["error", "before"]
+  }
+}
