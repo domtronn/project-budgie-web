@@ -4,6 +4,24 @@ import Head from 'next/head'
 import Nav from '../components/nav'
 import Counter from '../components/counter'
 
+import firebase from 'firebase/app'
+import 'firebase/firestore'
+
+
+if (!firebase.apps.length) {
+    firebase.initializeApp(config);
+}
+
+const app = firebase.app()
+const db = app.firestore()
+
+db.collection('locations').get()
+            .then((snapshot) => {
+                snapshot.forEach((doc) => {
+                    console.log(doc.data())
+                })
+            })
+
 const a = i => i
       |> (i => i + 2)
       |> (i => i * 2)
