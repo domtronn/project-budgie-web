@@ -1,12 +1,13 @@
 import React from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
-import Nav from '../components/nav'
-import Counter from '../components/counter'
+
+import Nav from '#/nav'
+import Counter from '#/counter'
 
 const a = i => i
       |> (i => i + 2)
-      |> (i => i * 2)
+      |> ~'Okay!'
 
 const Home = () => (
   <div>
@@ -26,7 +27,7 @@ const Home = () => (
 
       <div className='row'>
         <Link href='/my-state'>
-          <a className='card'>
+          <a href='#/' className='card'>
             <h3>Getting Started &rarr;</h3>
             <p>Learn more about Next.js on GitHub and in their examples.</p>
           </a>

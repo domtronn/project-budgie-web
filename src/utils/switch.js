@@ -1,5 +1,5 @@
 export default (cases) => (prop, ...data) => {
-  const f = cases.hasOwnProperty(prop)
+  const f = Object.prototype.hasOwnProperty.call(cases, prop)
     ? cases[prop]
     : cases.default
 

@@ -1,8 +1,9 @@
-import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 export default () => {
   const count = useSelector(s => s.app.count || 0)
+  const even = count % 2 === 0
+  console.log(even)
   const dispatch = useDispatch()
 
   return (
@@ -11,8 +12,9 @@ export default () => {
         You're on
         <b>{count}</b>
       </>
-      <button onClick={dispatch.bind({}, { type: 'inc-counter' })}> + </button>
-      <button onClick={dispatch.bind({}, { type: 'dec-counter' })}> - </button>
+      <div r-if={even}>EVEN!</div>
+      <button onClick={~dispatch({ type: 'inc-counter' })}> + </button>
+      <button onClick={~dispatch({ type: 'dec-counter' })}> - </button>
     </div>
   )
 }

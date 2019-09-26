@@ -1,7 +1,17 @@
 {
   "presets": ["next/babel"],
   "plugins": [
+    ["ramda", { "useES": true }],
+    ["react-require"],
+    ["implicit-function"],
     ["babel-plugin-macros"],
-    ["@babel/plugin-proposal-pipeline-operator", {"proposal": "fsharp"}]
+    ["babel-plugin-root-import", {
+      "paths": [ 
+        { "rootPathSuffix": "./src/components", "rootPathPrefix": "#/" },
+        { "rootPathSuffix": "./src/utils", "rootPathPrefix": "!/" },
+      ]
+    }],
+    ["@babel/plugin-proposal-pipeline-operator", { "proposal": "fsharp" }],
+    ["@babel/plugin-proposal-logical-assignment-operators"]
   ]
 }

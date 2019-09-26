@@ -1,4 +1,4 @@
-import React from 'react'
+/* eslint-disable */
 import NextApp from 'next/app'
 
 import withRedux from './_app-with-redux'

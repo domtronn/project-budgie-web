@@ -3,12 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "--------------------": "Running --------------------",
+    "dev": "next dev ./src",
+    "build": "next build ./src",
+    "start": "next start ./src",
+    "--------------------": "Testing --------------------",
+    "lint": "eslint --ext .js,.jsx src --",
+    "--------------------": "Installing -----------------",
+    "peers": "npx install-peerdeps --yarn --dev --",
+    "peers:all": "yarn run peers @domtronn/babel-core; yarn run peers @domtronn/eslint-core"
   },
   "dependencies": {
-    "eslint-plugin-jsx-a11y": "^6.2.3",
     "next": "9.0.6",
     "react": "16.9.0",
     "react-dom": "16.9.0",
@@ -18,16 +23,30 @@
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
+    "@babel/plugin-proposal-logical-assignment-operators": "^7.2.0",
     "@babel/plugin-proposal-pipeline-operator": "^7.5.0",
+    "@domtronn/babel-core": "2.0.2",
+    "@domtronn/eslint-core": "1.1.1",
     "babel-eslint": "^10.0.3",
+    "babel-plugin-implicit-function": "^0.1.1",
     "babel-plugin-macros": "^2.6.1",
+    "babel-plugin-ramda": "^2.0.0",
+    "babel-plugin-react-require": "^3.1.1",
+    "babel-plugin-root-import": "^6.4.1",
     "eslint": "^6.4.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-config-standard-jsx": "^8.1.0",
+    "eslint-plugin-immutable": "^1.0.0",
     "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-jsx-control-statements": "^2.2.1",
+    "eslint-plugin-no-loops": "^0.3.0",
+    "eslint-plugin-no-secrets": "^0.3.3",
     "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-ramda": "^2.5.1",
     "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^2.0.1",
     "eslint-plugin-standard": "^4.0.1"
   }
 }
