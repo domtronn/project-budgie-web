@@ -3,13 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "--------------------": "Installing -----------------",
+    "---------- Running": " ----------------------------------------",
     "dev": "next dev ./src",
     "build": "next build ./src",
     "start": "next start ./src",
+    "---------- Testing": " ----------------------------------------",
     "lint": "eslint --ext .js,.jsx src --",
+    "---------- Installing": " -------------------------------------",
     "peers": "npx install-peerdeps --yarn --dev --",
     "peers:all": "yarn run peers @domtronn/babel-core; yarn run peers @domtronn/eslint-core"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
   },
   "dependencies": {
     "grommet": "^2.7.8",
@@ -51,6 +58,7 @@
     "eslint-plugin-ramda": "^2.5.1",
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^2.0.1",
-    "eslint-plugin-standard": "^4.0.1"
+    "eslint-plugin-standard": "^4.0.1",
+    "husky": "^3.0.5"
   }
 }
