@@ -3,23 +3,27 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "--------------------": "Running --------------------",
+    "--------------------": "Installing -----------------",
     "dev": "next dev ./src",
     "build": "next build ./src",
     "start": "next start ./src",
-    "--------------------": "Testing --------------------",
     "lint": "eslint --ext .js,.jsx src --",
-    "--------------------": "Installing -----------------",
     "peers": "npx install-peerdeps --yarn --dev --",
     "peers:all": "yarn run peers @domtronn/babel-core; yarn run peers @domtronn/eslint-core"
   },
   "dependencies": {
+    "grommet": "^2.7.8",
+    "grommet-icons": "^4.3.0",
+    "ikonate": "^1.1.1",
+    "ky": "^0.14.0",
+    "ky-universal": "^0.3.0",
     "next": "9.0.6",
     "react": "16.9.0",
     "react-dom": "16.9.0",
     "react-redux": "^7.1.1",
     "redux": "^4.0.4",
-    "redux-devtools-extension": "^2.13.8"
+    "redux-devtools-extension": "^2.13.8",
+    "styled-components": "^4.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",

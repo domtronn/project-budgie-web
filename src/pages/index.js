@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
+import ky from 'ky-universal'
 
 import Nav from '#/nav'
 import Counter from '#/counter'
@@ -9,10 +10,10 @@ const a = i => i
       |> (i => i + 2)
       |> ~'Okay!'
 
-const Home = () => (
+const Home = ({ hello }) => (
   <div>
     <Head>
-      <title>Home</title>
+      <title>Home {hello}</title>
     </Head>
 
     <Nav />
@@ -84,5 +85,7 @@ const Home = () => (
     </style>
   </div>
 )
+
+Home.getInitialProps = async () => ky('http://echo.jsontest.com/hello/world').json()
 
 export default Home

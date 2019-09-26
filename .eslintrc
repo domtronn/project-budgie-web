@@ -26,7 +26,6 @@
     "no-secrets/no-secrets": "error",
     "no-loops/no-loops": "error", 
     "immutable/no-let": "error",
-    "immutable/no-this": "error",
-    "immutable/no-mutation": "error"
+    "immutable/no-this": "error"
   }
 }
