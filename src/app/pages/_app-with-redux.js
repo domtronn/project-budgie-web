@@ -10,7 +10,7 @@ import { reduxFirestore } from 'redux-firestore'
 
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-const firebaseConfig = require('../../serviceAccountKey.json')
+const firebaseConfig = require('../serviceAccountKey.json')
 const rfConfig = {}
 
 if (!firebase.apps.length) {

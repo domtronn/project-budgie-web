@@ -1,19 +1,17 @@
 {
-  "hosting": {
-    "public": "src/next",
-     "functions": {
-       "source": "src/functions"
-     }
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
-  }
+    "hosting": {
+        "public": "src/public",
+        "rewrites": [{
+            "source": "**/**",
+            "function": "next"
+        }],
+        "ignore": [
+            "firebase.json",
+            "**/.*",
+            "**/node_modules/**"
+        ]
+    },
+    "functions": {
+        "source": "src/functions"
+    }
 }
