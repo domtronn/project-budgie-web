@@ -1,4 +1,4 @@
-import sw from '../utils/switch'
+import sw from '@u/switch'
 
 export default (state = {}, { type, payload }) => sw({
   'set-location': ({ id, location }) => ({ ...state, [id]: { ...state[id], location } }),

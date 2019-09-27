@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import LegOfTrip from '#/leg-of-trip.connected'
+import LegOfTrip from '@c/leg-of-trip.connected'
 import * as Icons from 'grommet-icons'
 import { Grid, Button, WorldMap, Heading, Box } from 'grommet'
 

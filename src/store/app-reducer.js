@@ -1,4 +1,4 @@
-import sw from '../utils/switch'
+import sw from '@u/switch'
 
 export default (state = {}, { type, payload }) => sw({
   'inc-counter': ~({ count: state.count + 1 }),

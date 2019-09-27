@@ -7,10 +7,10 @@
     ["jsx-control-statements"],
     ["babel-plugin-macros"],
     ["babel-plugin-root-import", {
-      "paths": [ 
-        { "rootPathSuffix": "./src/components", "rootPathPrefix": "#/" },
-        { "rootPathSuffix": "./src/utils", "rootPathPrefix": "+/" }, 
-        { "rootPathSuffix": "./src/copy", "rootPathPrefix": "-/" }
+      "paths": [
+        { "rootPathSuffix": "./src/components", "rootPathPrefix": "@c/" },
+        { "rootPathSuffix": "./src/utils", "rootPathPrefix": "@u/" },
+        { "rootPathSuffix": "./src/copy", "rootPathPrefix": "@d/" }
       ]
     }],
     ["@loadable/babel-plugin"],

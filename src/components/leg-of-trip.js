@@ -1,14 +1,14 @@
 import { useState } from 'react'
 
-import { Text, TextInput, FormField } from 'grommet'
+import { Text, TextInput, Select, FormField } from 'grommet'
 
-import { random } from '+/arr'
+import { random } from '@u/arr'
 import { it, _ } from 'param.macro'
 import pluralize from 'pluralize'
 
 export default ({ key, copy, items = [], location, setLocation, days, setDays }) => {
   const [placeholder] = useState(random(items))
-  const [suggestions, setSuggestions] = useState(items)
+  const [options, setOptions] = useState(items)
 
   return (
     <>
@@ -16,18 +16,18 @@ export default ({ key, copy, items = [], location, setLocation, days, setDays })
         {copy}
       </Text>
 
-      <FormField htmlFor={`loc-input-${key}`}>
-        <TextInput
-          id={`loc-input-${key}`}
+      <FormField
+        margin={{ horizontal: 'small' }}
+        htmlFor={`loc-input-${key}`}
+      >
+        <Select
+          size='medium'
           placeholder={placeholder}
-          suggestions={suggestions}
           value={location}
-
-          onSelect={setLocation(_.suggestion)}
-          onChange={({ target }) => {
-            setLocation(target.value)
-            setSuggestions(items.filter(it.startsWith(target.value)))
-          }}
+          options={options}
+          onChange={setLocation(_.option)}
+          onClose={~setOptions(items)}
+          onSearch={i => setOptions(items.filter(it.startsWith(i)))}
         />
       </FormField>
 

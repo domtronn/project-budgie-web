@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { _, it } from 'param.macro'
 
-import LegOfTrip from '#/leg-of-trip'
-import { legs } from '-/trip.json'
+import LegOfTrip from '@c/leg-of-trip'
+import { legs } from '@d/trip.json'
 
 export default ({ id, ...props }) => {
   const dispatch = useDispatch()
