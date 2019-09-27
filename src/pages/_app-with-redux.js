@@ -2,13 +2,34 @@
 /* eslint immutable/no-let: 0 */
 import React, { Component } from 'react'
 
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import reducer from '../store/reducer'
 
+import { reduxFirestore } from 'redux-firestore'
+
+import firebase from 'firebase/app'
+import 'firebase/firestore'
+const firebaseConfig = require('../../serviceAccountKey.json')
+const rfConfig = {}
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig)
+  firebase.firestore()
+}
+
 const NextStore = '__NEXT_REDUX_STORE__'
 const isServer = () => typeof window === 'undefined'
-const initStore = (state) => createStore(reducer, state, composeWithDevTools(applyMiddleware()))
+
+const createStoreWithFirebase = compose(
+  reduxFirestore(firebase, rfConfig)
+)(createStore)
+
+const initialState = {}
+
+const initStore = (state) => createStoreWithFirebase(
+  reducer, initialState, composeWithDevTools(applyMiddleware())
+)
 
 const getStore = (state = {}) => {
   if (isServer()) return initStore(state)
