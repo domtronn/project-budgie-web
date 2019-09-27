@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux'
 export default () => {
   const count = useSelector(s => s.app.count || 0)
   const even = count % 2 === 0
-  console.log(even)
   const dispatch = useDispatch()
 
   return (

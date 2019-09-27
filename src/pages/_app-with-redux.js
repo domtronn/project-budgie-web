@@ -1,4 +1,5 @@
-/* eslint-disable */
+/* eslint immutable/no-this: 0 */
+/* eslint immutable/no-let: 0 */
 import React, { Component } from 'react'
 
 import { createStore, applyMiddleware } from 'redux'
@@ -42,7 +43,10 @@ export default (App) => {
 
     render () {
       return (
-        <App {...this.props} store={this.store} />
+        <App
+          {...this.props}
+          store={this.store}
+        />
       )
     }
   }

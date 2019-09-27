@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "---------- Running": " ----------------------------------------",
-    "dev": "next dev ./src",
+    "dev": "concurrently \"next dev ./src\" \"jsonserver --path ./data/api.json --port 3001\"",
     "build": "next build ./src",
     "start": "next start ./src",
+    "bc": "babel --",
     "---------- Testing": " ----------------------------------------",
     "lint": "eslint --ext .js,.jsx src --",
     "---------- Installing": " -------------------------------------",
@@ -21,10 +22,11 @@
   "dependencies": {
     "grommet": "^2.7.8",
     "grommet-icons": "^4.3.0",
-    "ikonate": "^1.1.1",
+    "grommet-theme-hpe": "^0.4.2",
     "ky": "^0.14.0",
     "ky-universal": "^0.3.0",
     "next": "9.0.6",
+    "pluralize": "^8.0.0",
     "react": "16.9.0",
     "react-dom": "16.9.0",
     "react-redux": "^7.1.1",
@@ -33,17 +35,21 @@
     "styled-components": "^4.4.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.6.2",
     "@babel/core": "^7.6.2",
     "@babel/plugin-proposal-logical-assignment-operators": "^7.2.0",
+    "@babel/plugin-proposal-optional-chaining": "^7.6.0",
     "@babel/plugin-proposal-pipeline-operator": "^7.5.0",
-    "@domtronn/babel-core": "2.0.2",
-    "@domtronn/eslint-core": "1.1.1",
-    "babel-eslint": "^10.0.3",
+    "@loadable/babel-plugin": "^5.10.3",
+    "@loadable/component": "^5.10.3",
+    "babel-eslint": "10",
     "babel-plugin-implicit-function": "^0.1.1",
+    "babel-plugin-jsx-control-statements": "^4.0.0",
     "babel-plugin-macros": "^2.6.1",
     "babel-plugin-ramda": "^2.0.0",
     "babel-plugin-react-require": "^3.1.1",
     "babel-plugin-root-import": "^6.4.1",
+    "concurrently": "^4.1.2",
     "eslint": "^6.4.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-config-standard-jsx": "^8.1.0",
@@ -59,6 +65,8 @@
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^2.0.1",
     "eslint-plugin-standard": "^4.0.1",
-    "husky": "^3.0.5"
+    "husky": "^3.0.5",
+    "jsonserver": "^0.1.6",
+    "param.macro": "^3.2.1"
   }
 }

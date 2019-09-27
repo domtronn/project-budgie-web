@@ -28,7 +28,10 @@ const Home = ({ hello }) => (
 
       <div className='row'>
         <Link href='/my-state'>
-          <a href='#/' className='card'>
+          <a
+            href='#/'
+            className='card'
+          >
             <h3>Getting Started &rarr;</h3>
             <p>Learn more about Next.js on GitHub and in their examples.</p>
           </a>

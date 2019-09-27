@@ -4,14 +4,18 @@
     ["ramda", { "useES": true }],
     ["react-require"],
     ["implicit-function"],
+    ["jsx-control-statements"],
     ["babel-plugin-macros"],
     ["babel-plugin-root-import", {
       "paths": [ 
         { "rootPathSuffix": "./src/components", "rootPathPrefix": "#/" },
-        { "rootPathSuffix": "./src/utils", "rootPathPrefix": "!/" },
+        { "rootPathSuffix": "./src/utils", "rootPathPrefix": "+/" }, 
+        { "rootPathSuffix": "./src/copy", "rootPathPrefix": "-/" }
       ]
     }],
+    ["@loadable/babel-plugin"],
     ["@babel/plugin-proposal-pipeline-operator", { "proposal": "fsharp" }],
-    ["@babel/plugin-proposal-logical-assignment-operators"]
+    ["@babel/plugin-proposal-logical-assignment-operators"],
+    ["@babel/plugin-proposal-optional-chaining"]
   ]
 }
