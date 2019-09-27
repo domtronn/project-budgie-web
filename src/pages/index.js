@@ -3,9 +3,6 @@ import Link from 'next/link'
 import Head from 'next/head'
 import ky from 'ky-universal'
 
-import Nav from '#/nav'
-import Counter from '#/counter'
-
 const a = i => i
       |> (i => i + 2)
       |> ~'Okay!'
@@ -15,10 +12,6 @@ const Home = ({ hello }) => (
     <Head>
       <title>Home {hello}</title>
     </Head>
-
-    <Nav />
-
-    <Counter />
 
     <div className='hero'>
       <h1 className='title'>Welcome to Next.js!</h1>
