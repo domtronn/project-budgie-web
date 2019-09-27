@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 
+import LegOfTrip from '#/leg-of-trip.connected'
 import * as Icons from 'grommet-icons'
 import { Grid, Button, WorldMap, Heading, Box } from 'grommet'
-
-import LegOfTrip from '#/leg-of-trip.connected'
 
 import ky from 'ky-universal'
 import { _, it } from 'param.macro'
@@ -19,7 +18,7 @@ const CountrySelector = ({ countries = [] }) => {
         return {
           name: c.country,
           color: 'accent-1',
-          location: Object.values(c.location)
+          location: Object.values(c.location),
         }
       })
       .filter(!!it)
@@ -31,7 +30,7 @@ const CountrySelector = ({ countries = [] }) => {
       columns={['auto', 'flex']}
       areas={[
         { name: 'header', start: [0, 0], end: [1, 0] },
-        { name: 'main', start: [1, 1], end: [1, 1] }
+        { name: 'main', start: [1, 1], end: [1, 1] },
       ]}
     >
       <Box

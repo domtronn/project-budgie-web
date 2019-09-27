@@ -65,6 +65,7 @@
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^2.0.1",
     "eslint-plugin-standard": "^4.0.1",
+    "eslint-plugin-unicorn": "^12.0.1",
     "husky": "^3.0.5",
     "jsonserver": "^0.1.6",
     "param.macro": "^3.2.1"

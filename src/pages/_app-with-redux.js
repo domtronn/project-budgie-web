@@ -32,7 +32,7 @@ export default (App) => {
 
       return {
         ...appProps,
-        initialState: store.getState()
+        initialState: store.getState(),
       }
     }
 

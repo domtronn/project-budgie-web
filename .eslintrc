@@ -1,5 +1,14 @@
 {
   "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "extends": [
     "standard",
     "standard-jsx",
@@ -15,13 +24,12 @@
     "no-secrets",
     "no-loops", 
     "immutable",
+    "unicorn",
     "ramda"
   ],
-  "env": {
-    "browser": true,
-    "node": true
-  },
   "rules": {
+    "comma-dangle": ["error", "only-multiline"],
+    "unicorn/filename-case": ["error", { "case": "kebabCase" }],
     "react/jsx-no-undef": ["error", { "allowGlobals": true }],
     "react/jsx-max-props-per-line": ["error", { "maximum": 1 }],
     "react-hooks/rules-of-hooks": "error",
