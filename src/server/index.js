@@ -6,8 +6,7 @@ const dev = process.env.NODE_ENV !== "production";
 const app = next({
     dev,
     conf: { distDir: "dist/client" },
-    dir: "./src/client",
-    quiet: false,
+    // dir: "./src/client",
 });
 
 console.log("dtest", app)

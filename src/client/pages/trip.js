@@ -8,8 +8,11 @@ import { Grid, Button, WorldMap, Heading, Box } from 'grommet'
 import ky from 'ky-universal'
 import { _, it } from 'param.macro'
 
+const countries = require('../data/countries.json')
+
 const CountrySelector = ({ countries = [] }) => {
   const [legs, setLegs] = useState(1)
+
   const places = useSelector(
     Object.values(_?.trip)
       .map(({ location }) => {
@@ -84,7 +87,8 @@ const CountrySelector = ({ countries = [] }) => {
   )
 }
 
-CountrySelector.getInitialProps = async () =>
-  (await ky('http://localhost:3001/countries').json()) |> { countries: _ }
+CountrySelector.getInitialProps = async () => {
+  return { countries: [countries] }
+}
 
 export default CountrySelector
