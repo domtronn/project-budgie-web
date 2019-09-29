@@ -26,7 +26,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# config
-/src/app/serviceAccountKey.json
 
-.firebase
+dist

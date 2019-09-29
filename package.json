@@ -1,6 +1,10 @@
 {
-  "name": "functions",
+  "name": "Budgie",
   "description": "Cloud Functions for Firebase",
+  "private": true,
+  "version": "1.0.0",
+  "main": "dist/server/index.js",
+  "license": "MIT",
   "scripts": {
     "setup": "yarn firebase use --add",
     "build:client": "next build src/client",
@@ -9,16 +13,16 @@
     "watch:client": "next src/client",
     "watch:server": "babel src/server --out-dir dist/server --source-maps --watch",
     "watch": "yarn watch:client & yarn watch:server",
-    "serve": "cross-env NODE_ENV=production yarn firebase serve --only functions,hosting",
-    "predeploy": "rimraf dist/ && yarn build",
+    "serve": "firebase serve --only functions,hosting",
     "deploy": "yarn firebase deploy --only functions,hosting"
   },
   "engines": {
     "node": "10"
   },
   "dependencies": {
+    "firebase": "^7.0.0",
     "firebase-admin": "^8.0.0",
-    "firebase-functions": "^3.1.0",
+      "firebase-functions": "^3.1.0",
     "grommet": "^2.7.8",
     "grommet-icons": "^4.3.0",
     "grommet-theme-hpe": "^0.4.2",
@@ -32,13 +36,46 @@
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-firestore": "^0.9.0",
-    "styled-components": "^4.4.0"
+    "styled-components": "^4.4.0",
+    "styled-system": "^5.1.2"
   },
   "devDependencies": {
-    "firebase-functions-test": "^0.1.6"
-  },
-  "private": true,
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT"
+    "@babel/cli": "^7.6.2",
+    "@babel/core": "^7.6.2",
+    "@babel/plugin-proposal-logical-assignment-operators": "^7.2.0",
+    "@babel/plugin-proposal-optional-chaining": "^7.6.0",
+    "@babel/plugin-proposal-pipeline-operator": "^7.5.0",
+    "@loadable/babel-plugin": "^5.10.3",
+    "@loadable/component": "^5.10.3",
+    "babel-eslint": "10",
+    "babel-plugin-implicit-function": "^0.1.1",
+    "babel-plugin-jsx-control-statements": "^4.0.0",
+    "babel-plugin-macros": "^2.6.1",
+    "babel-plugin-ramda": "^2.0.0",
+    "babel-plugin-react-require": "^3.1.1",
+    "babel-plugin-root-import": "^6.4.1",
+    "concurrently": "^4.1.2",
+    "cross-env": "^5.2.0",
+    "eslint": "^6.4.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-config-standard-jsx": "^8.1.0",
+    "eslint-plugin-immutable": "^1.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-jsx-control-statements": "^2.2.1",
+    "eslint-plugin-no-loops": "^0.3.0",
+    "eslint-plugin-no-secrets": "^0.3.3",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-ramda": "^2.5.1",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^2.0.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "eslint-plugin-unicorn": "^12.0.1",
+    "firebase-functions-test": "^0.1.6",
+    "firebase-tools": "^7.2.1",
+    "husky": "^3.0.5",
+    "jsonserver": "^0.1.6",
+    "param.macro": "^3.2.1"
+  }
 }

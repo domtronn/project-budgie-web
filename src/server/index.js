@@ -1,26 +1,20 @@
-import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
 import next from "next";
 
-admin.initializeApp();
-
 const dev = process.env.NODE_ENV !== "production";
+
 const app = next({
     dev,
-    // the absolute directory from the package.json file that initialises this module
-    // IE: the absolute path from the root of the Cloud Function
     conf: { distDir: "dist/client" },
+    dir: "./src/client",
+    quiet: false,
 });
+
+console.log("dtest", app)
+
 const handle = app.getRequestHandler();
 
-const server = functions.https.onRequest((request, response) => {
-    // log the page.js file or resource being requested
+exports.nextjs = functions.https.onRequest((request, response) => {
     console.log("File: " + request.originalUrl);
     return app.prepare().then(() => handle(request, response));
 });
-
-const nextjs = {
-    server,
-};
-
-export { nextjs };

@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "project-budgie"
+    "default": "project-budgie",
+    "staging": "project-budgie"
   }
 }

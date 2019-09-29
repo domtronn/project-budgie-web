@@ -10,7 +10,17 @@ import { reduxFirestore } from 'redux-firestore'
 
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-const firebaseConfig = require('../serviceAccountKey.json')
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDNyck6jDf4UmScagxFSE-4QjBHIXEScR0",
+  authDomain: "project-budgie.firebaseapp.com",
+  databaseURL: "https://project-budgie.firebaseio.com",
+  projectId: "project-budgie",
+  storageBucket: "project-budgie.appspot.com",
+  messagingSenderId: "785786802795",
+  appId: "1:785786802795:web:11f195a6e8549fbd46172e"
+}
+
 const rfConfig = {}
 
 if (!firebase.apps.length) {

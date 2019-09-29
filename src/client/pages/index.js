@@ -3,10 +3,6 @@ import Link from 'next/link'
 import Head from 'next/head'
 import ky from 'ky-universal'
 
-const a = i => i
-      |> (i => i + 2)
-      |> ~'Okay!'
-
 const Home = ({ hello }) => (
   <div>
     <Head>
