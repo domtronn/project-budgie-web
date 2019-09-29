@@ -9,7 +9,6 @@ const app = next({
     // dir: "./src/client",
 });
 
-console.log("dtest", app)
 
 const handle = app.getRequestHandler();
 
