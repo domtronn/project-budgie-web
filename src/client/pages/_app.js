@@ -1,7 +1,7 @@
 /* eslint immutable/no-this: 0 */
 import NextApp from 'next/app'
 import { Grommet } from 'grommet'
-import { theme } from './_theme'
+import { theme } from '@c/_theme'
 
 import withRedux from './_app-with-redux'
 import { Provider } from 'react-redux'
