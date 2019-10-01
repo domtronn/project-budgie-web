@@ -1,21 +1,16 @@
 {
   "hosting": {
-    "public": "public",
+    "public": "dist/public",
     "rewrites": [
       {
         "source": "**/**",
         "function": "nextjs"
       }
-    ]
+    ],
+    "predeploy": "yarn build-public"
   },
   "functions": {
-    "source": ".",
-    "ignore": [
-      ".firebase/**",
-      ".firebaserc",
-      "firebase.json",
-      "**/node_modules/**",
-      "**/public/**"
-    ]
+    "source": "dist/functions",
+    "predeploy": "yarn build-funcs && yarn build-app && yarn copy-deps"
   }
 }
