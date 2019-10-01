@@ -6,7 +6,7 @@ import { legs } from '@d/trip.json'
 
 export default ({ id, ...props }) => {
   const dispatch = useDispatch()
-  const location = useSelector(it?.trip[id]?.location)
+  const location = useSelector(it?.trip[id])
   const days = useSelector(it?.trip[id]?.days)
 
   const setLocation = dispatch({ type: 'set-location', payload: { id, location: _ } })

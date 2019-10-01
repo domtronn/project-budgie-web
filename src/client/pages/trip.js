@@ -1,94 +1,126 @@
-import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import LegOfTrip from '@c/leg-of-trip.connected'
+import WorldMap from '@c/styled-world-map'
+
 import * as Icons from 'grommet-icons'
-import { Grid, Button, WorldMap, Heading, Box } from 'grommet'
+import { Grid, Button, Heading, Box } from 'grommet'
+import Link from 'next/link'
+import Head from 'next/head'
 
 import ky from 'ky-universal'
 import { _, it } from 'param.macro'
 
-const countries = require('../data/countries.json')
+import { map } from 'ramda'
 
 const CountrySelector = ({ countries = [] }) => {
-  const [legs, setLegs] = useState(1)
-
+  const dispatch = useDispatch()
+  const legs = useSelector(
+    it?.trip
+      |> Object.values
+      |> _.length
+  )
   const places = useSelector(
-    Object.values(_?.trip)
-      .map(({ location }) => {
-        const c = countries.find(i => i.country === location)
-        if (!c) return
-        return {
-          name: c.country,
-          color: 'accent-1',
-          location: Object.values(c.location),
-        }
+    it?.trip
+      |> Object.values
+      |> map({
+        country: it?.country,
+        location: [
+          it?.location?.latitude,
+          it?.location?.longitude,
+        ],
+        color: 'accent-1',
       })
-      .filter(!!it)
   )
 
   return (
-    <Grid
-      rows={['auto', 'flex']}
-      columns={['auto', 'flex']}
-      areas={[
-        { name: 'header', start: [0, 0], end: [1, 0] },
-        { name: 'main', start: [1, 1], end: [1, 1] },
-      ]}
-    >
-      <Box
-        gridArea='header'
-        background='brand'
-        pad={{ horizontal: 'medium' }}
-      >
-        <Heading leg={2}>Hello, world</Heading>
-      </Box>
-      <Box
-        gridArea='main'
-        pad='medium'
+    <>
+      <Head>
+        <title>Your trip</title>
+      </Head>
+
+      <Grid
+        fill
+        rows={['auto', 'flex']}
+        columns={['auto', 'flex']}
+        areas={[
+          { name: 'header', start: [0, 0], end: [1, 0] },
+          { name: 'main', start: [1, 1], end: [1, 1] },
+        ]}
       >
         <Box
           direction='row'
           align='baseline'
-          wrap
+          gridArea='header'
+          background='accent-1'
+          pad={{ horizontal: 'medium' }}
         >
-          <For
-            index='i'
-            each='item'
-            of={Array(legs).fill()}
+          <Icons.Globe
+            color='dark-1'
+            size='medium'
+          />
+          <Heading
+            level={2}
+            margin={{ left: 'small' }}
           >
-            <LegOfTrip
-              key={i}
-              id={i}
-              items={countries.map(it.country)}
-            />
-          </For>
+            Trip builder
+          </Heading>
         </Box>
+        <Box
+          background='dark-1'
+          gridArea='main'
+          pad='medium'
+        >
+          <Box
+            direction='row'
+            align='baseline'
+            wrap
+          >
+            <For
+              index='i'
+              each='item'
+              of={Array(legs).fill()}
+            >
+              <LegOfTrip
+                key={i}
+                id={i}
+                items={countries}
+              />
+            </For>
+          </Box>
 
-        <Button
-          margin={{ vertical: 'medium' }}
-          pad='small'
-          icon={<Icons.AddCircle />}
-          label='Add'
-          onClick={~setLegs(legs + 1)}
-        />
+          <Button
+            pad='small'
+            label='Add'
+            margin={{ vertical: 'medium' }}
+            icon={<Icons.AddCircle />}
+            onClick={~dispatch({ type: 'add-leg', payload: legs })}
+          />
 
-        <WorldMap
-          margin='medium'
-          places={places}
-        />
-        <Button
-          type='submit'
-          label='Submit'
-          primary
-        />
-      </Box>
-    </Grid>
+          <WorldMap
+            theme={{ worldMap: { place: { base: '12px' } } }}
+            align='end'
+            places={places}
+          />
+
+          <Link href='/budget'>
+            <Button
+              type='submit'
+              label='Submit'
+              primary
+            />
+          </Link>
+        </Box>
+      </Grid>
+    </>
   )
 }
 
-CountrySelector.getInitialProps = async () => {
-  return { countries: [countries] }
-}
+const countries = require('../data/countries.json')
+
+CountrySelector.getInitialProps = async () =>
+    countries.countries
+  |> _.sort((a, b) => a.country < b.country)
+  |> { countries: _ }
 
 export default CountrySelector
