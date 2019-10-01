@@ -1,7 +1,7 @@
 {
   "presets": ["next/babel"],
   "plugins": [
-    ["ramda", { "useES": true }],
+    ["ramda"],
     ["react-require"],
     ["implicit-function"],
     ["jsx-control-statements"],

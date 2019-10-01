@@ -14,7 +14,7 @@
     "deploy": "yarn firebase deploy",
     "build-public": "cpx \"public/**/*.*\" \"dist/public\" -C",
     "build-funcs": "babel \"src/functions\" --out-dir \"dist/functions\"",
-    "build-app": "NODE_ENV=production next build \"src/client\"",
+    "build-client": "NODE_ENV=production next build \"src/client\"",
     "copy-deps": "cpx \"*{package.json,yarn.lock}\" \"dist/functions\"",
     "install-deps": "cd \"dist/functions\" && yarn"
   },
