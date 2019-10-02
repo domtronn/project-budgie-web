@@ -116,15 +116,15 @@ const CountrySelector = ({ countries = [] }) => {
   )
 }
 
-const countries = require('../data/countries.json')
-
 CountrySelector.getInitialProps = async ({ store }) => {
     const data = await store.firestore.get({ collection: 'locations' })
     let countries = []
     data.forEach((doc) => {
-        countries.push(doc.get('countries'))
+        if(doc.get('type') === 'country') {
+            countries.push({country: doc.get('country')})
+        }
     })
-    return { countires: uniq(countries) }
+    return { countries: countries }
 }
 
 export default CountrySelector
