@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "next \"src/client\"",
-    "preserve": "yarn build-public && yarn build-funcs && yarn build-app && yarn copy-deps && yarn install-deps",
+    "preserve": "yarn build-public && yarn build-funcs && yarn build-client && yarn copy-deps && yarn install-deps",
     "serve": "NODE_ENV=production yarn firebase serve --only functions,hosting",
     "deploy-app": "yarn firebase deploy --only hosting,functions",
     "deploy-functions": "yarn firebase deploy --only functions",

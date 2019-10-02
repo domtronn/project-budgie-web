@@ -11,7 +11,7 @@ import Head from 'next/head'
 import ky from 'ky-universal'
 import { _, it } from 'param.macro'
 
-import { map } from 'ramda'
+import { map, uniq } from 'ramda'
 
 const CountrySelector = ({ countries = [] }) => {
   const dispatch = useDispatch()
@@ -118,9 +118,13 @@ const CountrySelector = ({ countries = [] }) => {
 
 const countries = require('../data/countries.json')
 
-CountrySelector.getInitialProps = async () =>
-    countries.countries
-  |> _.sort((a, b) => a.country < b.country)
-  |> { countries: _ }
+CountrySelector.getInitialProps = async ({ store }) => {
+    const data = await store.firestore.get({ collection: 'locations' })
+    let countries = []
+    data.forEach((doc) => {
+        countries.push(doc.get('countries'))
+    })
+    return { countires: uniq(countries) }
+}
 
 export default CountrySelector
