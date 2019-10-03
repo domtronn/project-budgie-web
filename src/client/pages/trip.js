@@ -116,15 +116,17 @@ const CountrySelector = ({ countries = [] }) => {
   )
 }
 
-CountrySelector.getInitialProps = async ({ store }) => {
-    const data = await store.firestore.get({ collection: 'locations' })
-    let countries = []
-    data.forEach((doc) => {
-        if(doc.get('type') === 'country') {
-            countries.push({country: doc.get('country')})
-        }
-    })
-    return { countries: countries }
+import data from '../data/api.json'
+
+CountrySelector.getInitialProps = async (everything) => {
+    // const data = await store.firestore.get({ collection: 'locations' })
+    // let countries = []
+    // data.forEach((doc) => {
+    //     if(doc.get('type') === 'country') {
+    //         countries.push({country: doc.get('country')})
+    //     }
+    // })
+    return data
 }
 
 export default CountrySelector

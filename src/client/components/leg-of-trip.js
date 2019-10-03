@@ -9,9 +9,9 @@ import sw from '@u/switch'
 import { it, _ } from 'param.macro'
 import pluralize from 'pluralize'
 
-export default ({ key, copy, items = [], location, setLocation, days, setDays }) => {
-  const [placeholder] = useState(random(items))
+export default ({ key, copy, items = [], trip, setLocation, setDays }) => {
   const [options, setOptions] = useState(items)
+  const placeholder = random(options)
 
   return (
     <>
@@ -20,7 +20,7 @@ export default ({ key, copy, items = [], location, setLocation, days, setDays })
       </Text>
 
       <StyledFormField
-        width={`${Math.max(150, location?.name?.length * 15)}px`}
+        width={`${Math.max(150, trip?.location?.name?.length * 15)}px`}
         margin={{ horizontal: 'small' }}
         htmlFor={`loc-input-${key}`}
       >
@@ -31,7 +31,7 @@ export default ({ key, copy, items = [], location, setLocation, days, setDays })
           labelKey='name'
           options={options}
 
-          value={location?.name}
+          value={trip?.name || ''}
           placeholder={placeholder?.country}
 
           onChange={setLocation(_.option)}
@@ -50,7 +50,7 @@ export default ({ key, copy, items = [], location, setLocation, days, setDays })
           1: '40px;',
           2: '60px;',
           default: '120px;'
-        })(`${days}`?.length)}
+        })(`${trip?.days}`?.length)}
         htmlFor={`dur-input-${key}`}
       >
         <TextInput
@@ -58,11 +58,11 @@ export default ({ key, copy, items = [], location, setLocation, days, setDays })
           size='medium'
           id={`dur-input-${key}`}
           placeholder='1'
-          value={days}
+          value={trip?.days || ''}
           onChange={setDays(+_.target.value || 0)}
         />
       </StyledFormField>
-      <Text>{pluralize('days', +days)}</Text>
+      <Text>{pluralize('days', +trip?.days)}</Text>
     </>
   )
 }
