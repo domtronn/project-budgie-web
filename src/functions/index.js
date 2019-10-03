@@ -11,5 +11,6 @@ const handle = app.getRequestHandler();
 
 exports.nextjs = functions.https.onRequest((request, response) => {
     console.log("dtest File: " + request.originalUrl);
+    response.set('Cache-Control', 'public, max-age=36000, s-maxage=72000');
     return app.prepare().then(() => handle(request, response));
 });
