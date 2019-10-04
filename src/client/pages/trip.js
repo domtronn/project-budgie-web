@@ -13,7 +13,7 @@ import { _, it } from 'param.macro'
 
 import { map, uniq } from 'ramda'
 
-const CountrySelector = ({ countries = [] }) => {
+const CountrySelector = ({ countries = [], rates = {} }) => {
   const dispatch = useDispatch()
   const legs = useSelector(
     it?.trip
@@ -47,45 +47,45 @@ const CountrySelector = ({ countries = [] }) => {
           { name: 'header', start: [0, 0], end: [1, 0] },
           { name: 'main', start: [1, 1], end: [1, 1] },
         ]}
-      >
+        >
         <Box
           direction='row'
           align='baseline'
           gridArea='header'
           background='accent-1'
           pad={{ horizontal: 'medium' }}
-        >
+          >
           <Icons.Globe
             color='dark-1'
             size='medium'
-          />
+            />
           <Heading
             level={2}
             margin={{ left: 'small' }}
-          >
-            Trip builder
+            >
+            Trip builder: exchange €{Math.round(rates['EUR'] * 100) / 100}
           </Heading>
         </Box>
         <Box
           background='dark-1'
           gridArea='main'
           pad='medium'
-        >
+          >
           <Box
             direction='row'
             align='baseline'
             wrap
-          >
+            >
             <For
               index='i'
               each='item'
               of={Array(legs).fill()}
-            >
+              >
               <LegOfTrip
                 key={i}
                 id={i}
                 items={countries}
-              />
+                />
             </For>
           </Box>
 
@@ -95,20 +95,20 @@ const CountrySelector = ({ countries = [] }) => {
             margin={{ vertical: 'medium' }}
             icon={<Icons.AddCircle />}
             onClick={~dispatch({ type: 'add-leg', payload: legs })}
-          />
+            />
 
           <WorldMap
             theme={{ worldMap: { place: { base: '12px' } } }}
             align='end'
             places={places}
-          />
+            />
 
           <Link href='/budget'>
             <Button
               type='submit'
               label='Submit'
               primary
-            />
+              />
           </Link>
         </Box>
       </Grid>
@@ -116,17 +116,11 @@ const CountrySelector = ({ countries = [] }) => {
   )
 }
 
-import data from '../data/api.json'
+import apiData from '../data/api.json'
 
-CountrySelector.getInitialProps = async (everything) => {
-    // const data = await store.firestore.get({ collection: 'locations' })
-    // let countries = []
-    // data.forEach((doc) => {
-    //     if(doc.get('type') === 'country') {
-    //         countries.push({country: doc.get('country')})
-    //     }
-    // })
-    return data
+CountrySelector.getInitialProps = async ({ store }) => {
+  const exchange = await store.firestore.get({ collection: 'exchange', doc: '2019-10-04' })
+  return { countries: apiData, rates: exchange.data().rates }
 }
 
 export default CountrySelector
