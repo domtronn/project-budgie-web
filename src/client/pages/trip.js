@@ -120,6 +120,8 @@ import apiData from '../data/api.json'
 
 CountrySelector.getInitialProps = async ({ store }) => {
   const exchange = await store.firestore.get({ collection: 'exchange', doc: '2019-10-04' })
+  // const countriesRef = await store.firestore.get({ collection: 'locations', where: ['type', '==', 'country'] })
+  // const countries = countriesRef.docs.map((e) => e.data())
   return { countries: apiData, rates: exchange.data().rates }
 }
 
