@@ -63,7 +63,7 @@ const CountrySelector = ({ countries = [] }) => {
             level={2}
             margin={{ left: 'small' }}
             >
-            Trip builder: exchange €{Math.round(rates['EUR'] * 100) / 100}
+            Trip builder
           </Heading>
         </Box>
         <Box
