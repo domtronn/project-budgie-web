@@ -13,7 +13,7 @@ import { _, it } from 'param.macro'
 
 import { map, uniq } from 'ramda'
 
-const CountrySelector = ({ countries = [], rates = {} }) => {
+const CountrySelector = ({ countries = [] }) => {
   const dispatch = useDispatch()
   const legs = useSelector(
     it?.trip
@@ -119,7 +119,7 @@ const CountrySelector = ({ countries = [], rates = {} }) => {
 CountrySelector.getInitialProps = async ({ store }) => {
   const countriesRef = await store.firestore.get({ collection: 'locations', where: ['type', '==', 'country'] })
   const countries = countriesRef.docs.map((e) => e.data())
-  return { countries: countries, rates: exchange.data().rates }
+  return { countries: countries }
 }
 
 export default CountrySelector
