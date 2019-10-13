@@ -119,7 +119,7 @@ const CountrySelector = ({ countries = [] }) => {
 CountrySelector.getInitialProps = async ({ store }) => {
   const countriesRef = await store.firestore.get({ collection: 'locations', where: ['type', '==', 'country'] })
   const countries = countriesRef.docs.map((e) => e.data())
-  return { countries: countries }
+  return { countries }
 }
 
 export default CountrySelector

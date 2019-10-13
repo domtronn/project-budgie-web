@@ -12,7 +12,8 @@ import { toCurrency } from '@u/format'
 
 import { it, _ } from 'param.macro'
 
-const BudgetPanel = ({ trip }) => {
+const BudgetPanel = ({ rates }) => {
+  const trip = useSelector(it?.trip || {})
   const [budget, setBudget] = useState(0)
 
   return (
@@ -87,7 +88,7 @@ const BudgetPanel = ({ trip }) => {
                 of={calcBudget(Object.values(trip), budget || 0)}
               >
                 <TableRow>
-                  <TableCell><Text>{item.name}</Text></TableCell>
+                  <TableCell><Text>{item.country}</Text></TableCell>
                   <TableCell><Text>{item.days} {pluralize('day', item.days)}</Text></TableCell>
                   <TableCell><Text>{toCurrency(item.budget.daily)}</Text></TableCell>
                   <TableCell><Text>{toCurrency(item.budget.total)}</Text></TableCell>
@@ -103,7 +104,9 @@ const BudgetPanel = ({ trip }) => {
   )
 }
 
-export default () => {
-  const trip = useSelector(it?.trip || {})
-  return <BudgetPanel trip={trip} />
+BudgetPanel.getInitialProps = async ({ store }) => {
+  const exchange = await store.firestore.get({ collection: 'exchange', doc: '2019-10-04' })
+  const rates = exchange.data().rates
+  return { rates }
 }
+export default BudgetPanel
