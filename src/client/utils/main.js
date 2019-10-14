@@ -6,11 +6,15 @@ import { it } from 'param.macro'
 const days = +it?.days
 const coli = +it?.index['cost-of-living-index']
 
-export default (trip = [], budget) => {
-  const total = trip.reduce((acc, it) => acc + (days(it) * coli(it)), 0)
-  console.log(total)
-  const unit = budget / total
-  console.log(unit)
+const findRateExchange = (rates) => (trip) => rates[trip?.currency?.code]
 
-  return trip.map(it => ({ ...it, budget: { daily: unit * coli(it), total: unit * coli(it) * days(it) } }))
+export default (trip = [], budget, rates) => {
+  const findRate = findRateExchange(rates)
+  const total = trip.reduce((acc, it) => acc + (days(it) * coli(it)), 0)
+  const unit = budget / total
+
+  return trip.map(it => ({ ...it, budget: {
+    daily: unit * coli(it),
+    dailyWithExchange: unit * coli(it) * findRate(it),
+    total: unit * coli(it) * days(it) } }))
 }

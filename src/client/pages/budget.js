@@ -8,7 +8,7 @@ import Head from 'next/head'
 
 import pluralize from 'pluralize'
 import calcBudget from '@u/main'
-import { toCurrency } from '@u/format'
+import { toCurrency, toLocalCurrecy } from '@u/format'
 
 import { it, _ } from 'param.macro'
 
@@ -77,6 +77,7 @@ const BudgetPanel = ({ rates }) => {
                 <TableCell><Text>Location</Text></TableCell>
                 <TableCell><Text>Duration</Text></TableCell>
                 <TableCell><Text>Daily Budget</Text></TableCell>
+                <TableCell><Text>Daily Budget In local currency</Text></TableCell>
                 <TableCell><Text>Total Budget</Text></TableCell>
               </TableRow>
             </TableHeader>
@@ -85,12 +86,13 @@ const BudgetPanel = ({ rates }) => {
               <For
                 index='i'
                 each='item'
-                of={calcBudget(Object.values(trip), budget || 0)}
+                of={calcBudget(Object.values(trip), budget || 0, rates)}
               >
-                <TableRow>
+                <TableRow key={item.country}>
                   <TableCell><Text>{item.country}</Text></TableCell>
                   <TableCell><Text>{item.days} {pluralize('day', item.days)}</Text></TableCell>
                   <TableCell><Text>{toCurrency(item.budget.daily)}</Text></TableCell>
+                  <TableCell><Text>{toLocalCurrecy(item, item.budget.dailyWithExchange)}</Text></TableCell>
                   <TableCell><Text>{toCurrency(item.budget.total)}</Text></TableCell>
                 </TableRow>
               </For>
