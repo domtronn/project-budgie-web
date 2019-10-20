@@ -2,11 +2,15 @@
   Main algorithm for calculating the budget for a trip
 */
 import { it } from 'param.macro'
+import { find, last, propEq } from 'ramda'
 
 const days = +it?.days
 const coli = +it?.index['cost-of-living-index']
 
-const findRateExchange = (rates) => (trip) => rates[trip?.currency?.code]
+const findRateExchange = (rates) => (trip) => {
+  const a = find(propEq('code', trip?.currency?.code))(rates)
+  return last(a.rates)?.value
+}
 
 export default (trip = [], budget, rates) => {
   const findRate = findRateExchange(rates)

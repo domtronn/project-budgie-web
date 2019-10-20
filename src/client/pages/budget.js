@@ -16,7 +16,7 @@ import { it, _ } from 'param.macro'
 
 const BudgetPanel = ({  }) => {
   const trip = useSelector(it?.trip || {})
-  const rates = useSelector(it?.trip.rates || {})
+  const rates = useSelector(it?.app?.rates || {})
   const [budget, setBudget] = useState(0)
 
   return (

@@ -10,9 +10,7 @@ export const getRates = store => {
     const col = store.firestore.collection('rates')
     const rates = map(a => col.where('code', '==', a || 'GBP').get(), ratesToGet)
     const ratesP = await Promise.all(Object.values(rates))
-    // console.log('rate now is', ratesP[0].docs[0].data())
     const inter = map(it.docs, ratesP)
-    console.log('inter', inter)
 
     const data = map(it?.data(), flatten(inter))
     dispatch({type: 'set-rates', payload: data})
