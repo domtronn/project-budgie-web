@@ -3,6 +3,8 @@
 import React, { Component } from 'react'
 
 import { createStore, applyMiddleware, compose } from 'redux'
+import ReduxThunk from 'redux-thunk'
+
 import { composeWithDevTools } from 'redux-devtools-extension'
 import reducer from '../store/reducer'
 
@@ -25,7 +27,11 @@ const rfConfig = {}
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig)
-  firebase.firestore()
+  firebase.firestore().settings({
+    cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED
+  })
+
+  firebase.firestore().enablePersistence()
 }
 
 const NextStore = '__NEXT_REDUX_STORE__'
@@ -38,7 +44,7 @@ const createStoreWithFirebase = compose(
 const initialState = {}
 
 const initStore = (state) => createStoreWithFirebase(
-  reducer, initialState, composeWithDevTools(applyMiddleware())
+  reducer, initialState, composeWithDevTools(applyMiddleware(ReduxThunk))
 )
 
 const getStore = (state = {}) => {
