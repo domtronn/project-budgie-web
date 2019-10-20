@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import { Box } from '@c/styled-grommet'
+import { getRates } from '../store/app-reducer'
+
 import { Table, TableCell, TableRow, TableBody, TableHeader, Grid, Text, Heading, FormField, TextInput } from 'grommet'
 import * as Icons from 'grommet-icons'
 import Head from 'next/head'
@@ -12,8 +14,9 @@ import { toCurrency, toLocalCurrecy } from '@u/format'
 
 import { it, _ } from 'param.macro'
 
-const BudgetPanel = ({ rates }) => {
+const BudgetPanel = ({  }) => {
   const trip = useSelector(it?.trip || {})
+  const rates = useSelector(it?.trip.rates || {})
   const [budget, setBudget] = useState(0)
 
   return (
@@ -107,8 +110,9 @@ const BudgetPanel = ({ rates }) => {
 }
 
 BudgetPanel.getInitialProps = async ({ store }) => {
-  const exchange = await store.firestore.get({ collection: 'exchange', doc: '2019-10-04' })
-  const rates = exchange.data().rates
-  return { rates }
+  await store.dispatch(getRates(store))
+
+  return {}
 }
+
 export default BudgetPanel
