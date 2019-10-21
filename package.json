@@ -22,6 +22,14 @@
     "node": "10"
   },
   "dependencies": {
+    "@vx/curve": "^0.0.192",
+    "@vx/event": "^0.0.192",
+    "@vx/grid": "^0.0.192",
+    "@vx/group": "^0.0.192",
+    "@vx/mock-data": "^0.0.192",
+    "@vx/scale": "^0.0.192",
+    "@vx/shape": "^0.0.192",
+    "@vx/tooltip": "^0.0.192",
     "firebase": "^7.0.0",
     "firebase-admin": "^8.0.0",
     "firebase-functions": "^3.1.0",

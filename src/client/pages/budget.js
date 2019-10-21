@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 
 import { Box } from '@c/styled-grommet'
 import { getRates } from '../store/app-reducer'
+import Area from '@c/rate-graph'
 
 import { Table, TableCell, TableRow, TableBody, TableHeader, Grid, Text, Heading, FormField, TextInput } from 'grommet'
 import * as Icons from 'grommet-icons'
@@ -102,6 +103,8 @@ const BudgetPanel = ({  }) => {
             </TableBody>
 
           </Table>
+
+        <Area rates={rates} />
 
         </Box>
       </Grid>
