@@ -15,7 +15,7 @@ import { toCurrency, toLocalCurrecy } from '@u/format'
 
 import { it, _ } from 'param.macro'
 
-const BudgetPanel = ({  }) => {
+const BudgetPanel = () => {
   const trip = useSelector(it?.trip || {})
   const rates = useSelector(it?.app?.rates || {})
   const [budget, setBudget] = useState(0)
