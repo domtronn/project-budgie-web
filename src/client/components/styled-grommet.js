@@ -1,9 +1,10 @@
 import styled from 'styled-components'
-import { space, border, layout, typography, color } from 'styled-system'
+import { space, border, layout, flexbox, typography, color } from 'styled-system'
 
 import * as Grommet from 'grommet'
 
 const s = C => styled(C)`
+  ${flexbox}
   ${space}
   ${layout}
   ${typography}

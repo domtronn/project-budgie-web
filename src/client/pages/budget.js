@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 
+import { Image, Table, TableCell, TableRow, TableBody, TableHeader, Grid, Text, Heading, FormField, TextInput } from 'grommet'
 import { Box } from '@c/styled-grommet'
+import BudgetCard from '@c/budget-card'
+
 import { getRates } from '../store/app-reducer'
 import Area from '@c/rate-graph'
 
-import { Table, TableCell, TableRow, TableBody, TableHeader, Grid, Text, Heading, FormField, TextInput } from 'grommet'
 import * as Icons from 'grommet-icons'
 import Head from 'next/head'
 
@@ -38,11 +40,11 @@ const BudgetPanel = () => {
           direction='row'
           align='baseline'
           gridArea='header'
-          background='accent-1'
+          background='brand'
           pad={{ horizontal: 'medium' }}
         >
           <Icons.Money
-            color='dark-1'
+            color='light-1'
             size='medium'
           />
           <Heading
@@ -54,14 +56,8 @@ const BudgetPanel = () => {
         </Box>
 
         <Box
-          elevation='medium'
-          background='dark-1'
+          background='light-1'
           gridArea='main'
-          border={{
-            color: 'dark-1',
-            size: 'small',
-            side: 'all',
-          }}
         >
           <Text
             alignSelf='center'
@@ -75,38 +71,13 @@ const BudgetPanel = () => {
             </FormField>
           </Text>
 
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableCell><Text>Location</Text></TableCell>
-                <TableCell><Text>Duration</Text></TableCell>
-                <TableCell><Text>Daily Budget</Text></TableCell>
-                <TableCell><Text>Daily Budget In local currency</Text></TableCell>
-                <TableCell><Text>Total Budget</Text></TableCell>
-              </TableRow>
-            </TableHeader>
-
-            <TableBody>
-              <For
-                index='i'
-                each='item'
-                of={calcBudget(Object.values(trip), budget || 0, rates)}
-              >
-                <TableRow key={item.country}>
-                  <TableCell><Text>{item.country}</Text></TableCell>
-                  <TableCell><Text>{item.days} {pluralize('day', item.days)}</Text></TableCell>
-                  <TableCell><Text>{toCurrency(item.budget.daily)}</Text></TableCell>
-                  <TableCell><Text>{toLocalCurrecy(item, item.budget.dailyWithExchange)}</Text></TableCell>
-                  <TableCell><Text>{toCurrency(item.budget.total)}</Text></TableCell>
-                </TableRow>
-              </For>
-            </TableBody>
-
-          </Table>
-
-        <Box align='center' >
-          <Area rates={rates} />
-        </Box>
+          <For
+            index='i'
+            each='item'
+            of={calcBudget(Object.values(trip), budget || 0, rates)}
+          >
+            <BudgetCard {...item} />
+          </For>
 
         </Box>
       </Grid>
