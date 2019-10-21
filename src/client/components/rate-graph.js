@@ -16,29 +16,30 @@ const extent = (arr = [], fn = i => i) => [min(arr, fn), max(arr, fn)]
 
 // accessors
 const xStock = d => new Date(d.timestamp * 1000)
-const yStock = d => d.value * 500
+const yStock = d => d.value
 const bisectDate = bisector(d => new Date(d.timestamp * 1000)).left
 
 const Area = ({ rates = [] }) => {
+  if (!rates.length) return null
+
   const width = 500
   const height = 200
   const margin = { top: 20, bottom: 20, left: 0, right: 0 }
-  if (width < 10) return null
-  if (!rates.length) return null
 
   const stock = rates[0]?.rates
   // bounds
   const xMax = width - margin.left - margin.right
-  const yMax = height - margin.top - margin.bottom
+  const yMax = height
 
   // scales
   const xScale = scaleTime({
     range: [0, xMax],
     domain: extent(stock, xStock)
   })
+
   const yScale = scaleLinear({
-    range: [max(stock, yStock), 0],
-    domain: [0, max(stock, yStock) + yMax / 50],
+    range: [yMax, 0],
+    domain: [min(stock, yStock), max(stock, yStock)],
     nice: true
   })
 
@@ -54,7 +55,7 @@ const Area = ({ rates = [] }) => {
           width={width}
           height={height}
           fill='#32deaa'
-          rx={14}
+
         />
         <defs>
           <linearGradient
