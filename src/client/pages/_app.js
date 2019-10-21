@@ -12,7 +12,6 @@ class App extends NextApp {
 
     return (
       <Grommet
-        full
         theme={theme}
       >
         <Provider store={store}>

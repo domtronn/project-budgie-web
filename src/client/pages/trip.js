@@ -65,7 +65,7 @@ const CountrySelector = ({ countries = [] }) => {
           </Heading>
         </Box>
         <Box
-          background='dark-1'
+          background='light-1'
           gridArea='main'
           pad='medium'
         >
