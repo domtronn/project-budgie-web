@@ -22,7 +22,7 @@
     "react",
     "react-hooks",
     "no-secrets",
-    "no-loops", 
+    "no-loops",
     "immutable",
     "unicorn",
     "ramda"

@@ -104,7 +104,9 @@ const BudgetPanel = () => {
 
           </Table>
 
-        <Area rates={rates} />
+        <Box align='center' >
+          <Area rates={rates} />
+        </Box>
 
         </Box>
       </Grid>
