@@ -76,7 +76,7 @@ const BudgetPanel = () => {
             each='item'
             of={calcBudget(Object.values(trip), budget || 0, rates)}
           >
-            <BudgetCard {...item} />
+            <BudgetCard key={item.country} {...item} />
           </For>
 
         </Box>
