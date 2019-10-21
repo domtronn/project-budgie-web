@@ -8,10 +8,8 @@ import { Grid, Button, Heading, Box } from 'grommet'
 import Link from 'next/link'
 import Head from 'next/head'
 
-import ky from 'ky-universal'
 import { _, it } from 'param.macro'
-
-import { map, uniq } from 'ramda'
+import { map } from 'ramda'
 
 const CountrySelector = ({ countries = [] }) => {
   const dispatch = useDispatch()
@@ -47,45 +45,45 @@ const CountrySelector = ({ countries = [] }) => {
           { name: 'header', start: [0, 0], end: [1, 0] },
           { name: 'main', start: [1, 1], end: [1, 1] },
         ]}
-        >
+      >
         <Box
           direction='row'
           align='baseline'
           gridArea='header'
           background='accent-1'
           pad={{ horizontal: 'medium' }}
-          >
+        >
           <Icons.Globe
             color='dark-1'
             size='medium'
-            />
+          />
           <Heading
             level={2}
             margin={{ left: 'small' }}
-            >
+          >
             Trip builder
           </Heading>
         </Box>
         <Box
-          background='dark-1'
+          background='light-1'
           gridArea='main'
           pad='medium'
-          >
+        >
           <Box
             direction='row'
             align='baseline'
             wrap
-            >
+          >
             <For
               index='i'
               each='item'
               of={Array(legs).fill()}
-              >
+            >
               <LegOfTrip
                 key={i}
                 id={i}
                 items={countries}
-                />
+              />
             </For>
           </Box>
 
@@ -95,20 +93,20 @@ const CountrySelector = ({ countries = [] }) => {
             margin={{ vertical: 'medium' }}
             icon={<Icons.AddCircle />}
             onClick={~dispatch({ type: 'add-leg', payload: legs })}
-            />
+          />
 
           <WorldMap
             theme={{ worldMap: { place: { base: '12px' } } }}
             align='end'
             places={places}
-            />
+          />
 
           <Link href='/budget'>
             <Button
               type='submit'
               label='Submit'
               primary
-              />
+            />
           </Link>
         </Box>
       </Grid>
@@ -116,10 +114,11 @@ const CountrySelector = ({ countries = [] }) => {
   )
 }
 
-CountrySelector.getInitialProps = async ({ store }) => {
-  const countriesRef = await store.firestore.get({ collection: 'locations', where: ['type', '==', 'country'] })
-  const countries = countriesRef.docs.map((e) => e.data())
-  return { countries }
-}
+const query = { collection: 'locations', where: ['type', '==', 'country'] }
+CountrySelector.getInitialProps = async ({ store }) =>
+  await store.firestore.get(query)
+  |> it.docs
+  |> map(it.data())
+  |> { countries: it }
 
 export default CountrySelector
