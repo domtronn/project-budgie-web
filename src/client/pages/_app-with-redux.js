@@ -27,11 +27,7 @@ const rfConfig = {}
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig)
-  firebase.firestore().settings({
-    cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED
-  })
-
-  firebase.firestore().enablePersistence()
+  firebase.firestore()
 }
 
 const NextStore = '__NEXT_REDUX_STORE__'
