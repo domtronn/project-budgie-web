@@ -9,7 +9,7 @@ import Link from 'next/link'
 import Head from 'next/head'
 
 import { _, it } from 'param.macro'
-import { map } from 'ramda'
+import { map, all } from 'ramda'
 
 const CountrySelector = ({ countries = [] }) => {
   const dispatch = useDispatch()
@@ -29,6 +29,12 @@ const CountrySelector = ({ countries = [] }) => {
         ],
         color: 'accent-1',
       })
+  )
+  const submitDisabled = useSelector(
+    it?.trip
+      |> Object.values
+      |> all(!!it?.days && !!it?.country)
+      |> !it
   )
 
   return (
@@ -103,6 +109,7 @@ const CountrySelector = ({ countries = [] }) => {
 
           <Link href='/budget'>
             <Button
+              disabled={submitDisabled}
               type='submit'
               label='Submit'
               primary
