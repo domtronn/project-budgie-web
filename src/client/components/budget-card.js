@@ -8,7 +8,7 @@ import { toCurrency, toLocalCurrency } from '@u/format'
 import { it } from 'param.macro'
 import pluralize from 'pluralize'
 
-const CardHeader = ({ country, code, days }) => (
+const CardHeader = ({ country, code, days, flag }) => (
   <Box
     display='flex'
     flexDirection='row'
@@ -28,7 +28,7 @@ const CardHeader = ({ country, code, days }) => (
         width='64px'
         height='64px'
         fit='cover'
-        src={`https://www.countryflags.io/${code}/flat/64.png`}
+        src={flag}
         alt={`${country} flag`}
       />
     </Box>
@@ -62,6 +62,7 @@ const CardBody = ({ daily, dailyWithExchange, total, symbol, name, country }) =>
 )
 
 export default ({ budget, currency, ...props }) => {
+  console.log(props)
   const curRates = useSelector(
     it?.app?.rates || []
       |> it.find(it.code === currency?.code)
