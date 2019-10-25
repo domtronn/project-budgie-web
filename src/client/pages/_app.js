@@ -8,7 +8,7 @@ import { Provider } from 'react-redux'
 
 class App extends NextApp {
   render () {
-    const { Component, store, pageProps } = this.props
+    const { Component, store, firebaseProps, pageProps } = this.props
 
     return (
       <Grommet

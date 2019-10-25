@@ -1,26 +1,23 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
-import { Image, Table, TableCell, TableRow, TableBody, TableHeader, Grid, Text, Heading, FormField, TextInput } from 'grommet'
+import { Grid, Text, Heading, FormField, Button, TextInput } from 'grommet'
 import { Box } from '@c/styled-grommet'
 import BudgetCard from '@c/budget-card'
 
 import { getRates } from '../store/app-reducer'
-import Area from '@c/rate-graph'
 
 import * as Icons from 'grommet-icons'
 import Head from 'next/head'
 
-import pluralize from 'pluralize'
 import calcBudget from '@u/main'
-import { toCurrency, toLocalCurrecy } from '@u/format'
-
 import { it, _ } from 'param.macro'
 
 const BudgetPanel = () => {
   const trip = useSelector(it?.trip || {})
   const rates = useSelector(it?.app?.rates || {})
-  const [budget, setBudget] = useState(0)
+  const budget = useSelector(it?.budget || 0)
+  const dispatch = useDispatch()
 
   return (
     <>
@@ -41,18 +38,42 @@ const BudgetPanel = () => {
           align='baseline'
           gridArea='header'
           background='brand'
+          justify='between'
           pad={{ horizontal: 'medium' }}
         >
-          <Icons.Money
-            color='light-1'
-            size='medium'
-          />
-          <Heading
-            level={2}
-            margin={{ left: 'small' }}
+          <Box
+            direction='row'
+            align='baseline'
           >
-            Your budget
-          </Heading>
+            <Icons.Money
+              color='light-1'
+              size='medium'
+            />
+            <Heading
+              level={2}
+              margin={{ left: 'small' }}
+            >
+              Your budget
+            </Heading>
+          </Box>
+
+          <Box
+            direction='row'
+          >
+            <Button
+              primary
+              color='accent-1'
+              icon={<Icons.Money />}
+              onClick={~dispatch({ type: 'add-funds', payload: 50 })}
+            />
+            <Button
+              margin={{ left: 'small' }}
+              primary
+              color='accent-1'
+              icon={<Icons.Bundle />}
+              onClick={~dispatch({ type: 'add-funds', payload: 1000 })}
+            />
+          </Box>
         </Box>
 
         <Box

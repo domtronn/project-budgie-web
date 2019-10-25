@@ -17,6 +17,6 @@
     ["@babel/plugin-proposal-pipeline-operator", { "proposal": "fsharp" }],
     ["@babel/plugin-proposal-logical-assignment-operators"],
     ["@babel/plugin-proposal-optional-chaining"],
-    ["styled-components", { "ssr": true }]
+    ["styled-components", { "ssr": true, "displayName": true, "preProcess": false }]
   ]
 }
