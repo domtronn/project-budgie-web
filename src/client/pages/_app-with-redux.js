@@ -11,6 +11,7 @@ import reducer from '../store/reducer'
 import { reduxFirestore } from 'redux-firestore'
 
 import firebase from 'firebase/app'
+import 'firebase/auth'
 import 'firebase/firestore'
 
 import firebaseConfig from './_firebase-config.json'
@@ -32,7 +33,7 @@ const createStoreWithFirebase = compose(
 const initialState = {}
 
 const initStore = (state) => createStoreWithFirebase(
-  reducer, initialState, composeWithDevTools(applyMiddleware(ReduxThunk))
+  reducer(), initialState, composeWithDevTools(applyMiddleware(ReduxThunk))
 )
 
 const getStore = (state = {}) => {
