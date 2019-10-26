@@ -70,6 +70,7 @@
     "concurrently": "^4.1.2",
     "cpx": "^1.5.0",
     "cross-env": "^5.2.0",
+    "dotenv": "^8.2.0",
     "eslint": "^6.4.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-config-standard-jsx": "^8.1.0",
@@ -89,7 +90,6 @@
     "firebase-functions-test": "^0.1.6",
     "firebase-tools": "^7.2.1",
     "husky": "^3.0.5",
-    "jsonserver": "^0.1.6",
     "param.macro": "^3.2.1"
   }
 }
