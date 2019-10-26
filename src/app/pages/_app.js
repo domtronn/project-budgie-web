@@ -12,11 +12,19 @@ class App extends NextApp {
 
     return (
       <Grommet
+        css={{ margin: 0 }}
         theme={theme}
       >
         <Provider store={store}>
           <Component {...pageProps} />
         </Provider>
+        <style
+          jsx
+          global
+        > {`
+            body{ margin: 0; }
+          `}
+        </style>
       </Grommet>
     )
   }
