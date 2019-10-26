@@ -8,9 +8,9 @@
     ["babel-plugin-macros"],
     ["babel-plugin-root-import", {
       "paths": [
+        { "rootPathSuffix": "./src/app/firebase", "rootPathPrefix": "@fire/" },
         { "rootPathSuffix": "./src/app/components", "rootPathPrefix": "@c/" },
         { "rootPathSuffix": "./src/app/store", "rootPathPrefix": "@R/" },
-        { "rootPathSuffix": "./src/app/store", "rootPathPrefix": "@f/" },
         { "rootPathSuffix": "./src/app/utils", "rootPathPrefix": "@u/" },
         { "rootPathSuffix": "./src/app/copy", "rootPathPrefix": "@d/" }
       ]

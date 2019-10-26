@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
+import { store } from '@fire/'
 
 import LegOfTrip from '@c/leg-of-trip.connected'
 import WorldMap from '@c/styled-world-map'
@@ -151,11 +152,10 @@ const CountrySelector = ({ countries = [] }) => {
   )
 }
 
-const query = { collection: 'locations' }
-CountrySelector.getInitialProps = async ({ store }) =>
-  await store.firestore.get(query)
-  |> it.docs
-  |> map(it.data())
-  |> { countries: it }
+CountrySelector.getInitialProps = async () =>
+  await store.collection('locations').get()
+    |> it.docs
+    |> map(it.data())
+    |> { countries: it }
 
 export default CountrySelector
