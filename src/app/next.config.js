@@ -13,6 +13,7 @@ module.exports = {
       }), {})
 
     config.plugins.push(new webpack.DefinePlugin(env))
+    config.module.rules.push({ test: /\.css/, use: ['style-loader', 'css-loader'] })
 
     return config
   }

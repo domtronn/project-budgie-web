@@ -12,6 +12,16 @@ const fbConfig = {
   appId: process.env.FIREBASE_APP_ID
 }
 
+export const authConfig = {
+  signInFlow: 'popup',
+  signInSuccessUrl: '/trip',
+  signInOptions: [
+    firebase.auth.EmailAuthProvider.PROVIDER_ID,
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    firebase.auth.FacebookAuthProvider.PROVIDER_ID
+  ]
+}
+
 if (!firebase.apps.length) {
   firebase.initializeApp(fbConfig)
 }
