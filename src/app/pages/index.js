@@ -36,6 +36,4 @@ const Home = () => (
   </div>
 )
 
-Home.getInitialProps = async () => ky('http://echo.jsontest.com/hello/world').json()
-
 export default Home
