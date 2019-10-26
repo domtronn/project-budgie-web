@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { Grid, Text, Heading, FormField, Button, TextInput } from 'grommet'
@@ -87,7 +86,7 @@ const BudgetPanel = () => {
               <TextInput
                 label='Budget'
                 value={budget}
-                onChange={setBudget(_.target.value)}
+                onChange={dispatch({ type: 'set-funds', payload: _.target.value })}
               />
             </FormField>
           </Text>
@@ -97,7 +96,10 @@ const BudgetPanel = () => {
             each='item'
             of={calcBudget(Object.values(trip), budget || 0, rates)}
           >
-            <BudgetCard key={item.country} {...item} />
+            <BudgetCard
+              key={item.country}
+              {...item}
+            />
           </For>
 
         </Box>
