@@ -5,7 +5,7 @@ import { it } from 'param.macro'
 import { find, last } from 'ramda'
 
 const days = +it?.days
-const coli = +it?.index?.['cost-of-living-index']
+const coli = +it?.index?.costOfLivingIndex
 
 const findRateExchange = (rates) => (trip) =>
   rates

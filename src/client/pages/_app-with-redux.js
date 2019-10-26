@@ -11,17 +11,10 @@ import reducer from '../store/reducer'
 import { reduxFirestore } from 'redux-firestore'
 
 import firebase from 'firebase/app'
+import 'firebase/auth'
 import 'firebase/firestore'
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDNyck6jDf4UmScagxFSE-4QjBHIXEScR0",
-  authDomain: "project-budgie.firebaseapp.com",
-  databaseURL: "https://project-budgie.firebaseio.com",
-  projectId: "project-budgie",
-  storageBucket: "project-budgie.appspot.com",
-  messagingSenderId: "785786802795",
-  appId: "1:785786802795:web:11f195a6e8549fbd46172e"
-}
+import firebaseConfig from './_firebase-config.json'
 
 const rfConfig = {}
 
@@ -40,7 +33,7 @@ const createStoreWithFirebase = compose(
 const initialState = {}
 
 const initStore = (state) => createStoreWithFirebase(
-  reducer, initialState, composeWithDevTools(applyMiddleware(ReduxThunk))
+  reducer(), initialState, composeWithDevTools(applyMiddleware(ReduxThunk))
 )
 
 const getStore = (state = {}) => {

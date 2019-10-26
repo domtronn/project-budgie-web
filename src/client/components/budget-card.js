@@ -8,7 +8,7 @@ import { toCurrency, toLocalCurrency } from '@u/format'
 import { it } from 'param.macro'
 import pluralize from 'pluralize'
 
-const CardHeader = ({ country, code, days }) => (
+const CardHeader = ({ name, country, code, days, flag }) => (
   <Box
     display='flex'
     flexDirection='row'
@@ -28,11 +28,11 @@ const CardHeader = ({ country, code, days }) => (
         width='64px'
         height='64px'
         fit='cover'
-        src={`https://www.countryflags.io/${code}/flat/64.png`}
+        src={flag}
         alt={`${country} flag`}
       />
     </Box>
-    <Heading level={3}>{country} for {days} {pluralize('day', days)}</Heading>
+    <Heading level={3}>{name} for {days} {pluralize('day', days)}</Heading>
   </Box>
 )
 
@@ -44,7 +44,7 @@ const CardBody = ({ daily, dailyWithExchange, total, symbol, name, country }) =>
     background='light-1'
   >
     <Text size='small'>Your total budget is</Text>
-    <Text size='xxlarge'>{toCurrency(total)}</Text>
+    <Text size='xxlarge'>{toCurrency(total, 0)}</Text>
     <Text
       size='small'
       margin={{ top: 'medium' }}
@@ -55,7 +55,7 @@ const CardBody = ({ daily, dailyWithExchange, total, symbol, name, country }) =>
     </Text>
     <Box display='inline'>
       <Text size='large'>{symbol || '?'}</Text>
-      <Text size='xxlarge'>{(dailyWithExchange || daily || 0).toFixed(2)}</Text>
+      <Text size='xxlarge'>{Math.floor(dailyWithExchange || daily || 0)}</Text>
     </Box>
     <Text size='small'><i>({toCurrency(daily)})</i></Text>
   </Box>
@@ -79,8 +79,8 @@ export default ({ budget, currency, ...props }) => {
       <CardHeader {...props} />
       <CardBody
         {...budget}
-        {...currency}
         {...props}
+        {...currency}
       />
 
       <Area rates={curRates} />

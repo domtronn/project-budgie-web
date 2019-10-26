@@ -20,7 +20,7 @@ export default ({ key, copy, items = [], trip, setLocation, setDays }) => {
       </Text>
 
       <StyledFormField
-        width={`${Math.max(150, trip?.location?.country?.length * 15)}px`}
+        width={`${Math.max(150, trip?.location?.name?.length * 15)}px`}
         margin={{ horizontal: 'small' }}
         htmlFor={`loc-input-${key}`}
       >
@@ -28,17 +28,17 @@ export default ({ key, copy, items = [], trip, setLocation, setDays }) => {
           align='center'
           id={`loc-input-${key}`}
           size='medium'
-          labelKey='country'
+          labelKey='name'
           options={options}
 
-          value={trip?.country || ''}
-          placeholder={placeholder?.country}
+          value={trip?.name || ''}
+          placeholder={placeholder?.name}
 
           onChange={setLocation(_.option)}
           onClose={~setOptions(items)}
           onSearch={i => setOptions(
             items.filter(
-              it.country.toLowerCase().includes(i.toLowerCase())
+              it.name.toLowerCase().includes(i.toLowerCase())
             )
           )}
         />

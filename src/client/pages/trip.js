@@ -9,7 +9,7 @@ import Link from 'next/link'
 import Head from 'next/head'
 
 import { _, it } from 'param.macro'
-import { map } from 'ramda'
+import { map, all, last } from 'ramda'
 
 const CountrySelector = ({ countries = [] }) => {
   const dispatch = useDispatch()
@@ -18,6 +18,13 @@ const CountrySelector = ({ countries = [] }) => {
       |> Object.values
       |> _.length
   )
+
+  const lastLeg = useSelector(
+    it?.trip
+      |> Object.values
+      |> last
+  )
+
   const places = useSelector(
     it?.trip
       |> Object.values
@@ -27,8 +34,15 @@ const CountrySelector = ({ countries = [] }) => {
           it?.location?.latitude,
           it?.location?.longitude,
         ],
-        color: 'accent-1',
+        color: 'brand',
       })
+  )
+
+  const submitDisabled = useSelector(
+    it?.trip
+      |> Object.values
+      |> all(!!it?.days && !!it?.country)
+      |> !it
   )
 
   return (
@@ -50,19 +64,49 @@ const CountrySelector = ({ countries = [] }) => {
           direction='row'
           align='baseline'
           gridArea='header'
-          background='accent-1'
+          justify='between'
+          background='brand'
           pad={{ horizontal: 'medium' }}
         >
-          <Icons.Globe
-            color='dark-1'
-            size='medium'
-          />
-          <Heading
-            level={2}
-            margin={{ left: 'small' }}
+          <Box
+            direction='row'
+            align='baseline'
           >
-            Trip builder
-          </Heading>
+            <Icons.Globe
+              color='light-1'
+              size='medium'
+            />
+            <Heading
+              level={2}
+              margin={{ left: 'small' }}
+            >
+              Trip builder
+            </Heading>
+          </Box>
+          <Box
+            direction='row'
+          >
+            <If condition={legs > 1}>
+              <Button
+                primary
+                pad='medium'
+                color='accent-1'
+                label={`Remove ${lastLeg.country || ''}`}
+                margin={{ vertical: 'medium' }}
+                icon={<Icons.SubtractCircle />}
+                onClick={~dispatch({ type: 'remove-leg', payload: legs })}
+              />
+            </If>
+            <Button
+              primary
+              pad='medium'
+              label='Add'
+              color='accent-1'
+              margin={{ vertical: 'medium', left: 'medium' }}
+              icon={<Icons.AddCircle />}
+              onClick={~dispatch({ type: 'add-leg', payload: legs })}
+            />
+          </Box>
         </Box>
         <Box
           background='light-1'
@@ -87,14 +131,6 @@ const CountrySelector = ({ countries = [] }) => {
             </For>
           </Box>
 
-          <Button
-            pad='small'
-            label='Add'
-            margin={{ vertical: 'medium' }}
-            icon={<Icons.AddCircle />}
-            onClick={~dispatch({ type: 'add-leg', payload: legs })}
-          />
-
           <WorldMap
             theme={{ worldMap: { place: { base: '12px' } } }}
             align='end'
@@ -103,6 +139,7 @@ const CountrySelector = ({ countries = [] }) => {
 
           <Link href='/budget'>
             <Button
+              disabled={submitDisabled}
               type='submit'
               label='Submit'
               primary
@@ -114,7 +151,7 @@ const CountrySelector = ({ countries = [] }) => {
   )
 }
 
-const query = { collection: 'locations', where: ['type', '==', 'country'] }
+const query = { collection: 'locations' }
 CountrySelector.getInitialProps = async ({ store }) =>
   await store.firestore.get(query)
   |> it.docs
