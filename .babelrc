@@ -10,6 +10,7 @@
       "paths": [
         { "rootPathSuffix": "./src/client/components", "rootPathPrefix": "@c/" },
         { "rootPathSuffix": "./src/client/store", "rootPathPrefix": "@R/" },
+        { "rootPathSuffix": "./src/client/store", "rootPathPrefix": "@f/" },
         { "rootPathSuffix": "./src/client/utils", "rootPathPrefix": "@u/" },
         { "rootPathSuffix": "./src/client/copy", "rootPathPrefix": "@d/" }
       ]
