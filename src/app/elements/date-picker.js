@@ -14,11 +14,12 @@ const DropContent = ({ date: initialDate, onClose }) => (
   </Box>
 )
 
-export default () => {
+export default ({ onSelect }) => {
   const [open, setOpen] = useState(false)
   const [date, setDate] = useState()
 
   const onClose = (nextDate) => {
+    onSelect(nextDate)
     setDate(nextDate)
     setOpen(false)
     setTimeout(~setOpen(undefined), 1)

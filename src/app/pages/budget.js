@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { Grid, Text, Heading, FormField, Button, TextInput } from 'grommet'
@@ -11,6 +12,8 @@ import * as Icons from 'grommet-icons'
 import Head from 'next/head'
 
 import calcBudget from '@u/main'
+import dayjs from '@u/dayjs'
+
 import { it, _ } from 'param.macro'
 import { map, pluck, sum } from 'ramda'
 
@@ -25,6 +28,11 @@ const BudgetPanel = () => {
   const rates = useSelector(it?.app?.rates || {})
   const budget = useSelector(it?.budget || 0)
   const dispatch = useDispatch()
+
+  const [date, setDate] = useState()
+  const endDate = dayjs(date)
+    .add(tripDuration, 'days')
+    .format('dddd Do MMMM \'YY')
 
   return (
     <>
@@ -89,11 +97,18 @@ const BudgetPanel = () => {
         >
           <Text>
             When does your trip start?
-            <DatePicker />
+            <DatePicker
+              onSelect={setDate}
+            />
           </Text>
           <Text>
             You're going for <b>{tripDuration}</b> days.
           </Text>
+          <If condition={date}>
+            <Text>
+              At this rate your trip will end on <b>{endDate}</b>
+            </Text>
+          </If>
           <Text
             alignSelf='center'
           >
