@@ -24,6 +24,12 @@ export const authConfig = {
 
 if (!firebase.apps.length) {
   firebase.initializeApp(fbConfig)
+  firebase
+    .firestore()
+    .settings({
+      cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED
+    })
+    .enablePersistence()
 }
 
 export const auth = firebase.auth()

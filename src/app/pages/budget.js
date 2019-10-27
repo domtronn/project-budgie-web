@@ -3,17 +3,25 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Grid, Text, Heading, FormField, Button, TextInput } from 'grommet'
 import { Box } from '@c/styled-grommet'
 import BudgetCard from '@c/budget-card'
+import DatePicker from '@e/date-picker'
 
-import { getRates } from '../store/app-reducer'
+import { store } from '@fire/'
 
 import * as Icons from 'grommet-icons'
 import Head from 'next/head'
 
 import calcBudget from '@u/main'
 import { it, _ } from 'param.macro'
+import { map, pluck, sum } from 'ramda'
 
 const BudgetPanel = () => {
   const trip = useSelector(it?.trip || {})
+  const tripDuration = useSelector(
+    it?.trip
+      |> Object.values(_)
+      |> pluck('days')
+      |> sum(_)
+  )
   const rates = useSelector(it?.app?.rates || {})
   const budget = useSelector(it?.budget || 0)
   const dispatch = useDispatch()
@@ -79,6 +87,13 @@ const BudgetPanel = () => {
           background='light-1'
           gridArea='main'
         >
+          <Text>
+            When does your trip start?
+            <DatePicker />
+          </Text>
+          <Text>
+            You're going for <b>{tripDuration}</b> days.
+          </Text>
           <Text
             alignSelf='center'
           >
@@ -97,7 +112,7 @@ const BudgetPanel = () => {
             of={calcBudget(Object.values(trip), budget || 0, rates)}
           >
             <BudgetCard
-              key={item.country}
+              key={i}
               {...item}
             />
           </For>
@@ -108,10 +123,11 @@ const BudgetPanel = () => {
   )
 }
 
-BudgetPanel.getInitialProps = async ({ store }) => {
-  await store.dispatch(getRates(store))
-
-  return {}
+BudgetPanel.getInitialProps = async ({ store: s }) => {
+  return await store.collection('rates').get()
+    |> it.docs
+    |> map(it.data())
+    |> { type: 'set-rates', payload: it }
+    |> s.dispatch(_)
 }
-
 export default BudgetPanel

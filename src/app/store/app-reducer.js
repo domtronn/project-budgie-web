@@ -4,18 +4,15 @@ import { map, flatten } from 'ramda'
 import { store } from '@fire/'
 import { it } from 'param.macro'
 
-export const getRates = () => {
-  return async (dispatch, getState) => {
-    const state = getState()
-    const ratesToGet = map(it?.currency?.code, state.trip)
-    const col = store.collection('rates')
-    const rates = map(a => col.where('code', '==', a || 'GBP').get(), ratesToGet)
-    const ratesP = await Promise.all(Object.values(rates))
-    const inter = map(it.docs, ratesP)
+export const getRates = () => async (dispatch, getState) => {
+  const ratesToGet = map(it?.currency?.code, state.trip)
+  const col = store.collection('rates')
+  const rates = map(a => col.where('code', '==', a || 'GBP').get(), ratesToGet)
+  const ratesP = await Promise.all(Object.values(rates))
+  const inter = map(it.docs, ratesP)
 
-    const data = map(it?.data(), flatten(inter))
-    dispatch({ type: 'set-rates', payload: data })
-  }
+  const data = map(it?.data(), flatten(inter))
+  dispatch({ type: 'set-rates', payload: data })
 }
 
 export default (state = {}, { type, payload }) => sw({

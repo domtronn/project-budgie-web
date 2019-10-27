@@ -12,7 +12,6 @@ class App extends NextApp {
 
     return (
       <Grommet
-        css={{ margin: 0 }}
         theme={theme}
       >
         <Provider store={store}>

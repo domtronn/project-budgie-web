@@ -6,12 +6,14 @@ import { createStore, applyMiddleware } from 'redux'
 import ReduxThunk from 'redux-thunk'
 
 import { composeWithDevTools } from 'redux-devtools-extension'
-import reducer from '../store/reducer'
+import reducer from '@R/reducer'
 
 const NextStore = '__NEXT_REDUX_STORE__'
 const isServer = () => typeof window === 'undefined'
 
-const initialState = {}
+const initialState = process.env.STUB
+  ? require('../../../fixtures/initial-state.json')
+  : {}
 
 const initStore = (state) => createStore(
   reducer,
