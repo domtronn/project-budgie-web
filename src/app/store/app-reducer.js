@@ -18,7 +18,9 @@ export const getRates = () => async (dispatch, getState) => {
 export default (state = {}, { type, payload }) => sw({
   'inc-counter': ~({ count: state.count + 1 }),
   'dec-counter': ~({ count: state.count - 1 }),
+
   'set-rates': (rates) => ({ ...state, rates }),
+  'set-currency': (currency) => ({ ...state, currency }),
 
   default: state,
 })(type, payload)

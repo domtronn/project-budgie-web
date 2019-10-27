@@ -14,8 +14,10 @@ const findRateExchange = (rates) => (trip) =>
       |> last
       |> it?.value
 
-export default (trip = [], budget, rates) => {
+export default (trip = [], budget, currency, rates) => {
   const findRate = findRateExchange(rates)
+  const baseRate = findRate({ currency: { code: currency } })
+
   const total = trip.reduce((acc, it) => acc + (days(it) * coli(it)), 0)
   const unit = budget / total
 
@@ -23,7 +25,7 @@ export default (trip = [], budget, rates) => {
     ...it,
     budget: {
       daily: unit * coli(it),
-      dailyWithExchange: unit * coli(it) * findRate(it),
+      dailyWithExchange: unit * coli(it) * (findRate(it) / baseRate),
       total: unit * coli(it) * days(it)
     }
   }))

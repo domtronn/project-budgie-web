@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { Grid, Text, Heading, FormField, Button, TextInput } from 'grommet'
 import { Box } from '@c/styled-grommet'
+
+import CurrencySelector from '@c/currency-selector.connected'
 import BudgetCard from '@c/budget-card'
 import DatePicker from '@e/date-picker'
 
@@ -17,7 +19,8 @@ import dayjs from '@u/dayjs'
 import { it, _ } from 'param.macro'
 import { map, pluck, sum } from 'ramda'
 
-const BudgetPanel = () => {
+const BudgetPanel = ({ rates }) => {
+  const currency = useSelector(it ?.app ?.currency?.code || 'USD')
   const trip = useSelector(it?.trip || {})
   const tripDuration = useSelector(
     it?.trip
@@ -25,7 +28,7 @@ const BudgetPanel = () => {
       |> pluck('days')
       |> sum(_)
   )
-  const rates = useSelector(it?.app?.rates || {})
+
   const budget = useSelector(it?.budget || 0)
   const dispatch = useDispatch()
 
@@ -33,6 +36,8 @@ const BudgetPanel = () => {
   const endDate = dayjs(date)
     .add(tripDuration, 'days')
     .format('dddd Do MMMM \'YY')
+
+  dispatch({ type: 'set-rates', payload: rates })
 
   return (
     <>
@@ -71,6 +76,8 @@ const BudgetPanel = () => {
               Your budget
             </Heading>
           </Box>
+
+          <CurrencySelector />
 
           <Box
             direction='row'
@@ -124,7 +131,7 @@ const BudgetPanel = () => {
           <For
             index='i'
             each='item'
-            of={calcBudget(Object.values(trip), budget || 0, rates)}
+            of={calcBudget(Object.values(trip), budget || 0, currency || 'USD', rates)}
           >
             <BudgetCard
               key={i}
@@ -138,11 +145,10 @@ const BudgetPanel = () => {
   )
 }
 
-BudgetPanel.getInitialProps = async ({ store: s }) => {
-  return await store.collection('rates').get()
-    |> it.docs
-    |> map(it.data())
-    |> { type: 'set-rates', payload: it }
-    |> s.dispatch(_)
-}
+BudgetPanel.getInitialProps = async ({ store: s }) =>
+  await store.collection('rates').get()
+      |> it.docs
+      |> map(it.data())
+      |> { rates: it }
+
 export default BudgetPanel

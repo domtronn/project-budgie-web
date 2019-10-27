@@ -1,8 +1,12 @@
 /* next.config.js */
-const webpack = require('webpack')
 require('dotenv').config()
 
-module.exports = {
+const webpack = require('webpack')
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true'
+})
+
+module.exports = withBundleAnalyzer({
   distDir: '../../dist/functions/next',
   webpack: config => {
     const env = Object
@@ -17,4 +21,4 @@ module.exports = {
 
     return config
   }
-}
+})

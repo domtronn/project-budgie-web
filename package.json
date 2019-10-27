@@ -63,6 +63,7 @@
     "@babel/plugin-proposal-pipeline-operator": "^7.5.0",
     "@loadable/babel-plugin": "^5.10.3",
     "@loadable/component": "^5.10.3",
+    "@next/bundle-analyzer": "^9.1.1",
     "babel-eslint": "10",
     "babel-plugin-implicit-function": "^0.1.1",
     "babel-plugin-jsx-control-statements": "^4.0.0",
